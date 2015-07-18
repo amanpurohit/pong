@@ -20,6 +20,9 @@ circle_startx, circle_starty = 350, 250
 circle_speed = circle_dx, circle_dy = 5, 5
 rect_x, rect_y = 350, 480
 shift = 20
+max_lives = 3
+
+myfont = pygame.font.SysFont("monospace", 15)
 
 while True:
     for event in pygame.event.get():
@@ -46,6 +49,10 @@ while True:
     circle_startx += circle_dx
     circle_starty += circle_dy
 
+    # render text
+    lives = myfont.render("Lives: " + str(max_lives), 5, (149, 165, 166))
+    screen.blit(lives, (10, 10))
+
     # Collision with boundaries
     if circle_startx > 680 or circle_startx < 20:
         circle_dx = circle_dx * -1
@@ -53,6 +60,11 @@ while True:
         circle_dy = circle_dy * -1
     if circle_starty > 500:
         circle_startx, circle_starty = 350, 250
+        max_lives = max_lives - 1
+
+    # condition for game over
+    if max_lives == 0:
+        exit()
 
     # Collision with the bar
     if circle_starty >= rect_y:
