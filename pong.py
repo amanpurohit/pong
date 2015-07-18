@@ -8,8 +8,8 @@ from pygame.locals import K_LEFT, K_RIGHT
 pygame.init()
 
 size = [700, 500]
-black = 0, 0, 0
-white = 255, 255, 255
+white = 236, 240, 241
+red = 231, 76, 60
 
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Ping Pong")
@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 
 circle_startx, circle_starty = 350, 250
 circle_speed = circle_dx, circle_dy = 5, 5
-rect_startx, rect_starty = 350, 480
+rect_x, rect_y = 350, 480
 shift = 20
 
 while True:
@@ -27,9 +27,9 @@ while True:
             exit()
         if event.type == pygame.KEYDOWN:
             if event.key == K_RIGHT:
-                rect_startx += shift
+                rect_x += shift
             elif event.key == K_LEFT:
-                rect_startx += -shift
+                rect_x += -shift
         elif event.type == pygame.KEYUP:
             if event.key == K_RIGHT:
                 rect_move = 0
@@ -39,9 +39,9 @@ while True:
     screen.fill(white)
 
     # ball
-    pygame.draw.circle(screen, black, [circle_startx, circle_starty], 10, 0)
+    pygame.draw.circle(screen, red, [circle_startx, circle_starty], 10, 0)
     # bar
-    pygame.draw.rect(screen, black, [rect_startx, rect_starty, 100, 10])
+    pygame.draw.rect(screen, red, [rect_x, rect_y, 100, 10])
 
     circle_startx += circle_dx
     circle_starty += circle_dy
@@ -51,8 +51,13 @@ while True:
         circle_dx = circle_dx * -1
     if circle_starty < 20:
         circle_dy = circle_dy * -1
-    if circle_starty > 480:
+    if circle_starty > 500:
         circle_startx, circle_starty = 350, 250
+
+    # Collision with the bar
+    if circle_starty >= rect_y:
+        if circle_startx >= rect_x - 5 and circle_startx <= rect_x + 95:
+            circle_dy = circle_dy * -1
 
     clock.tick(20)  # limits frames per second
     pygame.display.flip()  # updates the screen
