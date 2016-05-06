@@ -1,4 +1,4 @@
-# pong
+# Pong
 The classic pong game using pygame python library
 
 ***Steps To Install***
@@ -7,6 +7,6 @@ The classic pong game using pygame python library
 - cd into the pong folder
 - run `python pong.py`
 
-***Screenshot***
+## Screenshot
 
-![pong](https://github.com/amanpurohit/pong/blob/master/screenshot/screenshot.png)
+![Pong Screenshot](https://github.com/amanpurohit/pong/blob/master/screenshot/screenshot.png "Pong Screenshot")
